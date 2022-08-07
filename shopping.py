@@ -33,11 +33,9 @@ def main():
 
 def load_data(filename):
     """
-    Load shopping data from a CSV file `filename` and convert into a list of
+    Loading shopping data from a CSV file `filename` and convert into a list of
     evidence lists and a list of labels. Return a tuple (evidence, labels).
 
-    evidence should be a list of lists, where each list contains the
-    following values, in order:
         - Administrative, an integer
         - Administrative_Duration, a floating point number
         - Informational, an integer
@@ -55,17 +53,13 @@ def load_data(filename):
         - TrafficType, an integer
         - VisitorType, an integer 0 (not returning) or 1 (returning)
         - Weekend, an integer 0 (if false) or 1 (if true)
-
-    labels should be the corresponding list of labels, where each label
-    is 1 if Revenue is true, and 0 otherwise.
     """
-    with open("d:\CS50 AI\Shopping\shopping\shopping.csv") as f:
+    with open("d:\shopping.csv") as f:
         reader = csv.reader(f)
         next(reader)
 
         data = []
         data1 = []
-        #flag=0 #to check if data is being printed in the correct format
         for row in reader:
             if(row[10]=="Jan"):
                 ans10=0
@@ -118,20 +112,11 @@ def load_data(filename):
                 int(ans15),#hmm
                 int(ans16)])#hmm
             data.append( 1 if row[17] == "TRUE" else 0)
-            #if flag<100:
-                #print(data1[flag])
-                #flag+=1
-
-            
+                      
     return (data1,data)
-    raise NotImplementedError
-
-
+   
 def train_model(evidence, labels):
-    """
-    Given a list of evidence lists and a list of labels, return a
-    fitted k-nearest neighbor model (k=1) trained on the data.
-    """
+    
     model = KNeighborsClassifier(n_neighbors=1)
 # Fit model
     model.fit(evidence,labels)
@@ -139,24 +124,9 @@ def train_model(evidence, labels):
 # Make predictions on the testing set
     #predictions = model.predict(X_testing)
     return model
-    raise NotImplementedError
 
 
 def evaluate(labels, predictions):
-    """
-    Given a list of actual labels and a list of predicted labels,
-    return a tuple (sensitivity, specificity).
-
-    Assume each label is either a 1 (positive) or 0 (negative).
-
-    `sensitivity` should be a floating-point value from 0 to 1
-    representing the "true positive rate": the proportion of
-    actual positive labels that were accurately identified.
-
-    `specificity` should be a floating-point value from 0 to 1
-    representing the "true negative rate": the proportion of
-    actual negative labels that were accurately identified.
-    """
     t_p=0
     t_n=0
     f_p=0
